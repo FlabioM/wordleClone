@@ -62,7 +62,7 @@
     const submitButton = document.querySelector('button');
     const gameOverMessage = document.getElementById('game-over');
 
-    let currentGuessNumber = 0
+    let currentGuessNumber = 0;
 
     submitButton.addEventListener('click', function(e){
         let guess = textBox.value;
@@ -91,7 +91,7 @@
             textBox.remove();
             return
         }
-    })
+    });
 
     function writeGuess(guess){
         //build our match array so we easilly see what matches
@@ -100,11 +100,35 @@
         //identify the current tr tag
         let currentGuessRow = board.children[currentGuessNumber];
         //Identify the current tr tag
-        let columns = currentGuessRow.children
+        let columns = currentGuessRow.children;
 
         for (let i = 0; 1<matchArray.length; i++){
+            let column = columns[i];
+            column.textContent = guess[i].toUpperCase();
+
+            if (matchArray[i] === 2){ //perfect match
+                column.classList.add('correct');
+            } else if (matchArray[i] === 1){ //in word, wrong spot
+                column.classList.add('in-word');
+            } else {
+                column.classList.add('incorrect'); //no match
+            }
             //todo check each letter for green/yellow/grey backgrounds
         }
+    }
+
+    function buildMatchArray(guess){
+        guess = guess.toUpperCase();
+        let answerAsArray = [];
+        let matchArray = [0, 0, 0, 0, 0]; //assume no match to start
+        for (let i = 0; i < answer.length; i++){
+            let letter = answer[i].toUpperCase();
+            answerAsArray.push(letter);
+        }
+        //todo find exact matches first
+
+        //todo find in-word matches and misses
+
     }
 </script>
 </html>
